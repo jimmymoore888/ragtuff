@@ -1,0 +1,21 @@
+{
+  "name": "ragtuff",
+  "version": "0.0.1",
+  "description": "Early infrastructure for safe, non-custodial wallet connectivity.",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimmymoore888/ragtuff.git"
+  },
+  "keywords": [
+    "crypto",
+    "wallet",
+    "sdk",
+    "non-custodial",
+    "infrastructure",
+    "web3"
+  ],
+  "author": "Jimmy Moore",
+  "private": false
+}
