@@ -2,11 +2,8 @@
   "name": "ragtuff",
   "version": "0.0.1",
   "description": "Early infrastructure for safe, non-custodial wallet connectivity.",
-  "main": "index.js", 
-  "scripts": {
-  "start": "node example.js",
-  "test": "node example.js"
-},
+  "main": "src/index.js",
+
   "license": "MIT",
   "repository": {
     "type": "git",
