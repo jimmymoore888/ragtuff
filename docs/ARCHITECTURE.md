@@ -145,3 +145,22 @@ This document is canonical.
 
 If implementation conflicts with this architecture,
 the implementation must change — not the architecture.
+
+## Optional Intelligence Layer (Advisory, Non-Authoritative)
+
+RagTuff is architected to support optional intelligence components that may observe transaction dynamics, network conditions, and user context in real time.
+
+These components are strictly advisory in nature. They do not execute transactions, do not possess signing authority, and do not override explicit user actions. Their sole purpose is to improve situational awareness by surfacing context, constraints, tradeoffs, and potential risks associated with user-initiated activity.
+
+### Constraints
+
+Any intelligence integration must adhere to the following non-negotiable constraints:
+
+- Optional and user-invoked
+- Advisory only (no autonomous decision-making)
+- Non-custodial
+- Non-authoritative
+- No outcome prediction or profit guarantees
+- No coercive routing or protocol enforcement
+
+Intelligence within RagTuff is treated as a lens, not an actor. This capability represents a long-term exploratory direction rather than a guaranteed feature.
