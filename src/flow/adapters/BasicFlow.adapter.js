@@ -7,9 +7,7 @@
  * This file performs NO execution, NO mutation, and NO enforcement.
  */
 
-import { Flow } from "../interfaces/Flow.interface.js";
-import { BasicSafetyGate } from "../../adapters/guards/BasicSafetyGate.adapter.js";
-
+import { Flow } from "../interfaces/Flow.js";
 export const BasicFlow = Object.freeze({
   /**
    * Evaluate context through all configured safety gates.
@@ -21,9 +19,8 @@ export const BasicFlow = Object.freeze({
    *   signals: Object[]
    * }}
    */
-  evaluate(context) {
-    const gates = [BasicSafetyGate];
-
+    evaluate(context, gates = []) {
+    
     const results = gates.map((gate) => gate.evaluate(context));
 
     const allowed = results.every((r) => r.allowed === true);
