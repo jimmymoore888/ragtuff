@@ -1,4 +1,4 @@
-// RagTuff minimal runtime spine
+import './EXECUTION_LOCK';
 // Flat-file version for accessibility-safe commit
 
 interface ObserverOutput {
