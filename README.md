@@ -10,6 +10,7 @@ RagTuff is advisory-only by design. It models, evaluates, and positions decision
 
 ## Non-Executable Notice
 No releases, packages, or executable artifacts are published by design.
+RagTuff provides analytical perspectives only and does not guarantee accuracy, completeness, or suitability for any particular decision.
 RagTuff is not a standalone application and is not intended to be “run,” deployed, or executed autonomously. It is an advisory, non-custodial decision framework designed to be embedded or integrated into other systems. The absence of a runnable entrypoint is intentional and enforced.
 ---
 
