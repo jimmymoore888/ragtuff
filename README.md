@@ -129,3 +129,13 @@ RagTuff exists to answer one question:
 **“Where does this decision place me — financially, strategically, legally, and irreversibly?”**
 
 It provides orientation under pressure without ever taking control.
+## Scope Guard
+
+RagTuff intentionally refuses feature expansion paths that introduce:
+- execution
+- custody
+- governance
+- monetization
+- economic incentives
+
+Proposals that violate these constraints are out of scope by design.
