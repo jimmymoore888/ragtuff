@@ -1,7 +1,15 @@
 # RagTuff
 
 ## Canonical Definition
+## Architectural Authority
 
+RagTuff’s architecture is formally defined and locked in  
+[ARCHITECTURE.md](./ARCHITECTURE.md).
+
+The README is descriptive only.
+
+If any statement in this README appears to conflict with ARCHITECTURE.md,  
+ARCHITECTURE.md is authoritative and correct.
 **RagTuff** is a **Strategically, Financially, and Cryptographically Engineered  
 Decision-Support Positioning System**  
 for **Defensive and Adversarial Analysis, Counter-Improvement Measurement, and Consequence Modeling**.
