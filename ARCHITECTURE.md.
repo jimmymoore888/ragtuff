@@ -1,0 +1,42 @@
+## Architecture
+
+RagTuff is designed as **fail-safe infrastructure** for artificial intelligence and decision systems.  
+Its architecture prioritizes **constraint, refusal, and non-execution** over capability expansion.
+
+### Core Architectural Principles
+
+**Fail-Safe by Design**  
+RagTuff defaults to safety under uncertainty. When conditions are ambiguous, degraded, or adversarial, the system **refuses action** rather than attempting recovery through execution.
+
+**Non-Executing**  
+RagTuff does not issue commands, perform actions, or trigger downstream effects. It cannot act on the world.
+
+**Non-Custodial**  
+RagTuff does not hold assets, keys, credentials, or authority—directly or indirectly.
+
+**Constraint-First**  
+All intelligence is bounded by explicit limits. Architecture enforces what cannot be done before considering what could be suggested or composed.
+
+**Refusal as a First-Class Outcome**  
+Refusal is an intentional, documented system state—not an error condition. This prevents incentive drift and liability escalation.
+
+**No Upgrade Path to Control**  
+There is no latent mechanism to introduce execution, custody, governance, or economic leverage without a visible, auditable rewrite.
+
+### Failure Mode
+
+RagTuff is architected so that **failure degrades to safety**:
+- no action  
+- no custody  
+- no escalation  
+- no authority transfer  
+
+### Architectural Non-Goals
+
+- No automation or orchestration  
+- No governance, voting, or signaling  
+- No monetization primitives  
+- No optimization for speed, yield, or growth  
+
+RagTuff is not a product engine.  
+It is a **boundary**.
