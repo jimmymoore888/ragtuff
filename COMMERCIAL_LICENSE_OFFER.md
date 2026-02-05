@@ -1,5 +1,6 @@
 RAGTUFF — COMMERCIAL LICENSE OFFER
-Copyright © 2026 Jimmy W. Moore. All Rights Reserved.
+Copyright © 2026 Jimmy W. Moore. 
+Cabot, Ar 72023 All Rights Reserved.
 
 --------------------------------------------------
 OVERVIEW
