@@ -1,0 +1,59 @@
+{
+  "asset": {
+    "name": "RagTuff Savings Token",
+    "symbol": "RTS",
+    "decimals": 6,
+    "total_supply": "1000000000000000"
+  },
+  "law": {
+    "framework": "RAGTUFF",
+    "framework_version": "1.0",
+    "framework_commit": "<GIT_COMMIT_HASH>",
+    "framework_url": "https://github.com/jimmymoore888/ragtuff/blob/<COMMIT>/IMPORTANT-WARNING.md",
+    "framework_hash": "<SHA256_OF_CANONICAL_SPEC>",
+    "upgradable": false,
+    "supply": {
+      "type": "FIXED",
+      "minting_allowed": false,
+      "burn_mode": "MANUAL"
+    },
+    "timelock": {
+      "enabled": true,
+      "model": "DETERMINISTIC",
+      "interval_years": 2,
+      "unlock_window_days": 7,
+      "cycles": 8
+    }
+  },
+  "modules": {
+    "assignment_mode": "RANDOM_3_PER_ACCOUNT",
+    "library_version": 1,
+    "library": [
+      {
+        "id": 0,
+        "code": "SAVINGS_BOOST",
+        "class": "TIMING",
+        "params": {
+          "bonus_share_bps": 50
+        }
+      },
+      {
+        "id": 1,
+        "code": "BURN_REBATE",
+        "class": "BURN",
+        "params": {
+          "rebate_bps": 25,
+          "max_rebate_per_account": "100000000"
+        }
+      },
+      {
+        "id": 2,
+        "code": "LP_PRIORITY",
+        "class": "LIQUIDITY",
+        "params": {
+          "lp_multiplier_bps": 150
+        }
+      }
+    ]
+  }
+}
