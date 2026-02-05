@@ -4,7 +4,7 @@
 ## Architectural Authority
 
 RagTuff’s architecture is formally defined and locked in  
-[ARCHITECTURE.md](./ARCHITECTURE.md).
+ARCHITECTURE.
 
 The README is descriptive only.
 
