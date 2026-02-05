@@ -137,6 +137,22 @@ RagTuff exists to answer one question:
 **“Where does this decision place me — financially, strategically, legally, and irreversibly?”**
 
 It provides orientation under pressure without ever taking control.
+... (existing README content)
+
+## RagTuff Law Pack v1 (JSON Reference)
+
+`RAGTUFF_LAW_PACK_V1.json` is the canonical JSON configuration for RagTuff-law assets.
+
+It defines three sections:
+
+- `asset` – public token metadata (name, symbol, decimals, total_supply)
+- `law` – how the external asset is bound to the RagTuff framework (commit, URL, hash, supply and timelock rules)
+- `modules` – the per-account module system (`RANDOM_3_PER_ACCOUNT` with a fixed module library)
+
+This JSON file is designed for **external factories and token contracts** that wish to adopt RagTuff as a law / consequence framework.
+
+RagTuff itself remains **non-executable and advisory-only**; the law pack is a schema for other systems to consume.
+
 ## Scope Guard
 
 RagTuff intentionally refuses feature expansion paths that introduce:
