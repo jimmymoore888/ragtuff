@@ -31,19 +31,25 @@ RagTuff is not a standalone application and is not intended to be “run,” dep
 - A counter-improvement measurement system
 - Cryptographically integrity-preserving and audit-oriented
 - Non-custodial, client-side, and user-controlled
-## Operator Invariants (Human Layer)
 
+## Operator (Human Layer)
 RagTuff governs autonomous systems.
 
 But builders still govern RagTuff.
 
-These invariants define the operator discipline required to ship and maintain
-infrastructure-grade systems:
+- ## Operator Invariants (Human Layer)
+INV-H1 — Continuous Activity
+The system must never enter prolonged idle collapse. Minimal forward motion is preferable to stagnation.
 
-- Continuous Activity
-- Monotonic Forward Delta
-- Momentum Preservation
-- Reality Priority
+INV-H2 — Monotonic Forward Delta
+Each build cycle must produce a non-negative state transition.
+
+INV-H3 — Momentum Preservation
+External interruptions may occur, but forward velocity must be restored without drift.
+
+INV-H4 — Reality Priority
+External survival constraints (health, income, safety) supersede build velocity.
+
 
 ### RagTuff Is Not
 - An execution engine
