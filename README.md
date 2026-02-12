@@ -37,6 +37,51 @@ RagTuff governs autonomous systems.
 
 But builders still govern RagTuff.
 
+Operator (Human Layer)
+
+RagTuff intentionally separates framework governance from deployed economic law.
+
+These are two different authorities:
+
+1. Builder Governance (Framework Layer)
+
+Builders retain control over RagTuff as a framework:
+	•	Documentation and specification evolution
+	•	Module and tooling development
+	•	Factory design and deployment patterns
+	•	New implementations and integrations
+
+Builders govern how RagTuff is built and extended.
+
+This layer is mutable.
+
+⸻
+
+2. Invariant Sovereignty (Deployed Law Layer)
+
+Once RagTuff Core is instantiated on-chain, builders permanently relinquish control over:
+	•	Supply mechanics
+	•	Treasury partitioning
+	•	Timelocks and unlock schedules
+	•	Burn ceilings
+	•	Core economic invariants
+	•	Emergency override paths
+
+No builder, operator, governance process, or automated agent can modify these.
+
+This layer is immutable.
+
+⸻
+
+Summary
+
+Builders evolve RagTuff.
+
+Invariants govern RagTuff deployments.
+
+Humans control the tools.
+Law controls the outcomes.
+
 - ## Operator Invariants (Human Layer)
 INV-H1 — Continuous Activity
 The system must never enter prolonged idle collapse. Minimal forward motion is preferable to stagnation.
