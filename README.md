@@ -54,7 +54,6 @@ Builders retain control over RagTuff as a framework:
 Builders govern how RagTuff is built and extended.
 
 This layer is mutable.
-
 ⸻
 
 2. Invariant Sovereignty (Deployed Law Layer)
@@ -76,7 +75,6 @@ This layer is immutable.
 Summary
 
 Builders evolve RagTuff.
-
 Invariants govern RagTuff deployments.
 
 Humans control the tools.
