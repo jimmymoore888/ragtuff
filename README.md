@@ -31,6 +31,19 @@ RagTuff is not a standalone application and is not intended to be “run,” dep
 - A counter-improvement measurement system
 - Cryptographically integrity-preserving and audit-oriented
 - Non-custodial, client-side, and user-controlled
+## Operator Invariants (Human Layer)
+
+RagTuff governs autonomous systems.
+
+But builders still govern RagTuff.
+
+These invariants define the operator discipline required to ship and maintain
+infrastructure-grade systems:
+
+- Continuous Activity
+- Monotonic Forward Delta
+- Momentum Preservation
+- Reality Priority
 
 ### RagTuff Is Not
 - An execution engine
