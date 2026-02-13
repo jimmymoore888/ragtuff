@@ -2,6 +2,12 @@
 
 RagTuff is the governing invariant architecture. Execution systems must conform to it; they do not define it.
 
+RagTuff does not belong to DeFi.
+DeFi conforms to RagTuff.
+
+RagTuff does not serve AI treasuries.
+AI treasuries must obey RagTuff.
+
 ## Canonical Definition
 
 RagTuff is a **non-executable, advisory-only constitutional framework** for high-consequence decision environments.
