@@ -186,6 +186,6 @@ But as constraint infrastructure for machine-governed finance.
 
 ⸻
 
-Summary Statement
+## Summary Statement
 
 RagTuff introduces constitutional determinism into autonomous treasury systems, enabling institutional-grade, AI-compatible financial entities governed by invariant law rather than discretionary governance.
