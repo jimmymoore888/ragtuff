@@ -1,5 +1,7 @@
 # RagTuff
 
+RagTuff is the governing invariant architecture. Execution systems must conform to it; they do not define it.
+
 ## Canonical Definition
 
 RagTuff is a **non-executable, advisory-only constitutional framework** for high-consequence decision environments.
