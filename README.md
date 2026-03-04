@@ -1,5 +1,31 @@
 # RagTuff
 
+## Constitutional Economic Law for Autonomous Systems
+
+RagTuff is a deterministic law layer designed to govern digital economies.
+
+Rather than relying on governance votes or discretionary policy,
+RagTuff establishes non-negotiable economic rules that define how
+financial systems behave.
+
+The framework introduces constitutional constraints to token economies,
+ensuring predictable monetary behavior even in autonomous AI-driven markets.
+
+---
+
+## Architecture
+
+RagTuff (Law Layer)
+↓
+Near-Intersect (Factory)
+↓
+Economic Modules
+↓
+Token Economies
+
+
+# RagTuff
+
 RagTuff is the governing invariant architecture. Execution systems must conform to it; they do not define it.
 
 RagTuff does not belong to DeFi.
