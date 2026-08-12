@@ -1,5 +1,18 @@
 # RagTuff
+## Constitutional Inheritance
 
+This repository participates in the shared RagTuff ↔ Nexus Core
+governing architecture.
+
+RagTuff defines the constitutional boundary.
+Nexus Core governs verified adaptation within that boundary.
+
+**Governing principle:**
+
+> A beneficial objective does not authorize prohibited methods.
+
+See [`CONSTITUTIONAL_INHERITANCE.md`](./CONSTITUTIONAL_INHERITANCE.md)
+for the complete governing specification.
 ## Constitutional Economic Law for Autonomous Systems
 
 RagTuff is a deterministic law layer designed to govern digital economies.
