@@ -5,18 +5,7 @@ export const ELIGIBILITY_STATUS = Object.freeze({
 });
 
 export const RAGTUFF_INPUT_SCHEMA = Object.freeze({
-  constitutionalAttributes: 'object',
-  constitutionalRuleSpecification: {
-    version: 'string',
-    rules: [
-      {
-        id: 'string',
-        attribute: 'string',
-        expected: 'string | number | boolean | null',
-        sourceOfTruth: 'string'
-      }
-    ]
-  }
+  constitutionalAttributes: 'object'
 });
 
 export const RAGTUFF_OUTPUT_SCHEMA = Object.freeze({
@@ -52,34 +41,39 @@ function isPrimitive(value) {
   return value === null || ['string', 'number', 'boolean'].includes(typeof value);
 }
 
+function getApprovedInternalConstitutionalRuleSpecification() {
+  // No approved internal machine-readable constitutional rule source is currently available.
+  return null;
+}
+
 function validateRuleSpecification(specification) {
   if (!specification || typeof specification !== 'object') {
     return 'MACHINE_READABLE_REQUIRED';
   }
 
   if (typeof specification.version !== 'string' || specification.version.trim() === '') {
-    return 'MACHINE_READABLE_REQUIRED';
+    return 'INVALID_INTERNAL_RULE_SPECIFICATION';
   }
 
   if (!Array.isArray(specification.rules) || specification.rules.length === 0) {
-    return 'MACHINE_READABLE_REQUIRED';
+    return 'INVALID_INTERNAL_RULE_SPECIFICATION';
   }
 
   for (const rule of specification.rules) {
     if (!rule || typeof rule !== 'object') {
-      return 'INVALID_RULE_SPECIFICATION';
+      return 'INVALID_INTERNAL_RULE_SPECIFICATION';
     }
 
     if (typeof rule.id !== 'string' || rule.id.trim() === '') {
-      return 'INVALID_RULE_SPECIFICATION';
+      return 'INVALID_INTERNAL_RULE_SPECIFICATION';
     }
 
     if (typeof rule.attribute !== 'string' || rule.attribute.trim() === '') {
-      return 'INVALID_RULE_SPECIFICATION';
+      return 'INVALID_INTERNAL_RULE_SPECIFICATION';
     }
 
     if (!hasOwn(rule, 'expected')) {
-      return 'INVALID_RULE_SPECIFICATION';
+      return 'INVALID_INTERNAL_RULE_SPECIFICATION';
     }
 
     if (!isPrimitive(rule.expected)) {
@@ -87,7 +81,7 @@ function validateRuleSpecification(specification) {
     }
 
     if (typeof rule.sourceOfTruth !== 'string' || rule.sourceOfTruth.trim() === '') {
-      return 'INVALID_RULE_SPECIFICATION';
+      return 'INVALID_INTERNAL_RULE_SPECIFICATION';
     }
   }
 
@@ -109,13 +103,25 @@ export function evaluateConstitutionalEligibility(input) {
     });
   }
 
-  const { constitutionalAttributes, constitutionalRuleSpecification } = input;
+  const { constitutionalAttributes } = input;
 
+  if (!constitutionalAttributes || typeof constitutionalAttributes !== 'object') {
+    return result({
+      status: ELIGIBILITY_STATUS.INDETERMINATE,
+      reasons: [{
+        code: 'INSUFFICIENT_CONSTITUTIONAL_ATTRIBUTES',
+        message: 'Structured constitutional attributes are required for evaluation.'
+      }]
+    });
+  }
+
+  const constitutionalRuleSpecification = getApprovedInternalConstitutionalRuleSpecification();
   const specificationError = validateRuleSpecification(constitutionalRuleSpecification);
+
   if (specificationError) {
     const specMessages = {
       MACHINE_READABLE_REQUIRED: 'MACHINE-READABLE CONSTITUTIONAL RULE SPECIFICATION REQUIRED',
-      INVALID_RULE_SPECIFICATION: 'Machine-readable constitutional rule specification is invalid.',
+      INVALID_INTERNAL_RULE_SPECIFICATION: 'Approved internal machine-readable constitutional rule specification is invalid.',
       UNSUPPORTED_EXPECTED_VALUE_TYPE: 'Machine-readable rules support only primitive expected values (string, number, boolean, null).'
     };
 
@@ -124,16 +130,6 @@ export function evaluateConstitutionalEligibility(input) {
       reasons: [{
         code: specificationError,
         message: specMessages[specificationError]
-      }]
-    });
-  }
-
-  if (!constitutionalAttributes || typeof constitutionalAttributes !== 'object') {
-    return result({
-      status: ELIGIBILITY_STATUS.INDETERMINATE,
-      reasons: [{
-        code: 'INSUFFICIENT_CONSTITUTIONAL_ATTRIBUTES',
-        message: 'Structured constitutional attributes are required for evaluation.'
       }]
     });
   }
