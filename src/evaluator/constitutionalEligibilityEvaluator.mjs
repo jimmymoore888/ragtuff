@@ -52,15 +52,7 @@ export function evaluateConstitutionalEligibility(input = {}) {
 
   const canonicalRuleSpecification = getCanonicalConstitutionalRuleSpecification();
 
-  if (!canonicalRuleSpecification) {
-    return Object.freeze({
-      status: RagTuffEligibilityStatus.INDETERMINATE,
-      reason: INDETERMINATE_REASON,
-      constitutionalAttributes,
-      invariantViolations: Object.freeze([]),
-      mutation: false
-    });
-  }
+  void canonicalRuleSpecification;
 
   return Object.freeze({
     status: RagTuffEligibilityStatus.INDETERMINATE,
