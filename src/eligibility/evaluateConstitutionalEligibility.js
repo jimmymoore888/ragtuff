@@ -12,7 +12,7 @@ export const RAGTUFF_INPUT_SCHEMA = Object.freeze({
       {
         id: 'string',
         attribute: 'string',
-        expected: 'any',
+        expected: 'string | number | boolean | null',
         sourceOfTruth: 'string'
       }
     ]
@@ -48,38 +48,46 @@ function hasOwn(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
+function isPrimitive(value) {
+  return value === null || ['string', 'number', 'boolean'].includes(typeof value);
+}
+
 function validateRuleSpecification(specification) {
   if (!specification || typeof specification !== 'object') {
-    return 'MACHINE-READABLE CONSTITUTIONAL RULE SPECIFICATION REQUIRED';
+    return 'MACHINE_READABLE_REQUIRED';
   }
 
   if (typeof specification.version !== 'string' || specification.version.trim() === '') {
-    return 'MACHINE-READABLE CONSTITUTIONAL RULE SPECIFICATION REQUIRED';
+    return 'MACHINE_READABLE_REQUIRED';
   }
 
   if (!Array.isArray(specification.rules) || specification.rules.length === 0) {
-    return 'MACHINE-READABLE CONSTITUTIONAL RULE SPECIFICATION REQUIRED';
+    return 'MACHINE_READABLE_REQUIRED';
   }
 
   for (const rule of specification.rules) {
     if (!rule || typeof rule !== 'object') {
-      return 'INVALID_MACHINE_READABLE_RULE_SPECIFICATION';
+      return 'INVALID_RULE_SPECIFICATION';
     }
 
     if (typeof rule.id !== 'string' || rule.id.trim() === '') {
-      return 'INVALID_MACHINE_READABLE_RULE_SPECIFICATION';
+      return 'INVALID_RULE_SPECIFICATION';
     }
 
     if (typeof rule.attribute !== 'string' || rule.attribute.trim() === '') {
-      return 'INVALID_MACHINE_READABLE_RULE_SPECIFICATION';
+      return 'INVALID_RULE_SPECIFICATION';
     }
 
     if (!hasOwn(rule, 'expected')) {
-      return 'INVALID_MACHINE_READABLE_RULE_SPECIFICATION';
+      return 'INVALID_RULE_SPECIFICATION';
+    }
+
+    if (!isPrimitive(rule.expected)) {
+      return 'UNSUPPORTED_EXPECTED_VALUE_TYPE';
     }
 
     if (typeof rule.sourceOfTruth !== 'string' || rule.sourceOfTruth.trim() === '') {
-      return 'INVALID_MACHINE_READABLE_RULE_SPECIFICATION';
+      return 'INVALID_RULE_SPECIFICATION';
     }
   }
 
@@ -105,11 +113,17 @@ export function evaluateConstitutionalEligibility(input) {
 
   const specificationError = validateRuleSpecification(constitutionalRuleSpecification);
   if (specificationError) {
+    const specMessages = {
+      MACHINE_READABLE_REQUIRED: 'MACHINE-READABLE CONSTITUTIONAL RULE SPECIFICATION REQUIRED',
+      INVALID_RULE_SPECIFICATION: 'Machine-readable constitutional rule specification is invalid.',
+      UNSUPPORTED_EXPECTED_VALUE_TYPE: 'Machine-readable rules support only primitive expected values (string, number, boolean, null).'
+    };
+
     return result({
       status: ELIGIBILITY_STATUS.INDETERMINATE,
       reasons: [{
         code: specificationError,
-        message: specificationError
+        message: specMessages[specificationError]
       }]
     });
   }
@@ -128,9 +142,6 @@ export function evaluateConstitutionalEligibility(input) {
   const citations = [];
 
   for (const rule of constitutionalRuleSpecification.rules) {
-    ruleIds.push(rule.id);
-    citations.push(rule.sourceOfTruth);
-
     if (!hasOwn(constitutionalAttributes, rule.attribute)) {
       return result({
         status: ELIGIBILITY_STATUS.INDETERMINATE,
@@ -144,6 +155,9 @@ export function evaluateConstitutionalEligibility(input) {
         }]
       });
     }
+
+    ruleIds.push(rule.id);
+    citations.push(rule.sourceOfTruth);
 
     if (constitutionalAttributes[rule.attribute] !== rule.expected) {
       return result({

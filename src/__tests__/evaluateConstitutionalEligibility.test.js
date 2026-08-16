@@ -68,22 +68,24 @@ test('never invokes verifyRequest even if present globally', () => {
   globalThis.verifyRequest = () => {
     invoked = true;
   };
+  try {
+    evaluateConstitutionalEligibility({
+      constitutionalAttributes: { invariantAck: true },
+      constitutionalRuleSpecification: {
+        version: '1.0.0',
+        rules: [
+          {
+            id: 'INV-ACK-1',
+            attribute: 'invariantAck',
+            expected: true,
+            sourceOfTruth: 'INVARIANTS.md#L1'
+          }
+        ]
+      }
+    });
 
-  evaluateConstitutionalEligibility({
-    constitutionalAttributes: { invariantAck: true },
-    constitutionalRuleSpecification: {
-      version: '1.0.0',
-      rules: [
-        {
-          id: 'INV-ACK-1',
-          attribute: 'invariantAck',
-          expected: true,
-          sourceOfTruth: 'INVARIANTS.md#L1'
-        }
-      ]
-    }
-  });
-
-  assert.equal(invoked, false);
-  delete globalThis.verifyRequest;
+    assert.equal(invoked, false);
+  } finally {
+    delete globalThis.verifyRequest;
+  }
 });
