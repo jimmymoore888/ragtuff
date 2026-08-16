@@ -5,8 +5,12 @@ import {
   evaluateConstitutionalEligibility
 } from '../index.js';
 
-test('returns INDETERMINATE when machine-readable rule spec is missing', () => {
-  const outcome = evaluateConstitutionalEligibility({ constitutionalAttributes: {} });
+test('returns INDETERMINATE when approved internal machine-readable constitutional rules are unavailable', () => {
+  const outcome = evaluateConstitutionalEligibility({
+    constitutionalAttributes: {
+      requestText: 'assess eligibility only'
+    }
+  });
 
   assert.equal(outcome.status, ELIGIBILITY_STATUS.INDETERMINATE);
   assert.equal(outcome.mutation, false);
@@ -16,51 +20,34 @@ test('returns INDETERMINATE when machine-readable rule spec is missing', () => {
   );
 });
 
-test('does not infer constitutional violation from request text keywords', () => {
-  const outcome = evaluateConstitutionalEligibility({
+test('ignores caller-supplied constitutionalRuleSpecification and still requires internal approved source', () => {
+  const withoutCallerSpecification = evaluateConstitutionalEligibility({
     constitutionalAttributes: {
-      requestText: 'execute authorize custody bypass privilege escalation private key',
-      invariantAck: true
+      requestText: 'execute authorize custody bypass privilege escalation private key'
+    }
+  });
+
+  const withCallerSpecification = evaluateConstitutionalEligibility({
+    constitutionalAttributes: {
+      requestText: 'execute authorize custody bypass privilege escalation private key'
     },
     constitutionalRuleSpecification: {
       version: '1.0.0',
       rules: [
         {
-          id: 'INV-ACK-1',
-          attribute: 'invariantAck',
-          expected: true,
-          sourceOfTruth: 'INVARIANTS.md#L1'
+          id: 'caller-rule',
+          attribute: 'requestText',
+          expected: 'anything',
+          sourceOfTruth: 'caller-controlled'
         }
       ]
     }
   });
 
-  assert.equal(outcome.status, ELIGIBILITY_STATUS.ELIGIBLE);
-  assert.equal(outcome.mutation, false);
-});
-
-test('returns NOT_ELIGIBLE on explicit rule mismatch only', () => {
-  const outcome = evaluateConstitutionalEligibility({
-    constitutionalAttributes: {
-      invariantAck: false
-    },
-    constitutionalRuleSpecification: {
-      version: '1.0.0',
-      rules: [
-        {
-          id: 'INV-ACK-1',
-          attribute: 'invariantAck',
-          expected: true,
-          sourceOfTruth: 'INVARIANTS.md#L1'
-        }
-      ]
-    }
-  });
-
-  assert.equal(outcome.status, ELIGIBILITY_STATUS.NOT_ELIGIBLE);
-  assert.equal(outcome.reasons[0].code, 'RULE_MISMATCH');
-  assert.equal(outcome.mutation, false);
-  assert.equal('disposition' in outcome, false);
+  assert.deepEqual(withCallerSpecification, withoutCallerSpecification);
+  assert.equal(withCallerSpecification.status, ELIGIBILITY_STATUS.INDETERMINATE);
+  assert.equal(withCallerSpecification.reasons[0].code, 'MACHINE_READABLE_REQUIRED');
+  assert.equal(withCallerSpecification.mutation, false);
 });
 
 test('never invokes verifyRequest even if present globally', () => {
@@ -68,19 +55,11 @@ test('never invokes verifyRequest even if present globally', () => {
   globalThis.verifyRequest = () => {
     invoked = true;
   };
+
   try {
     evaluateConstitutionalEligibility({
-      constitutionalAttributes: { invariantAck: true },
-      constitutionalRuleSpecification: {
-        version: '1.0.0',
-        rules: [
-          {
-            id: 'INV-ACK-1',
-            attribute: 'invariantAck',
-            expected: true,
-            sourceOfTruth: 'INVARIANTS.md#L1'
-          }
-        ]
+      constitutionalAttributes: {
+        requestText: 'eligibility check'
       }
     });
 
